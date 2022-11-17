@@ -1,5 +1,5 @@
-# CUDA Programming
-My CUDA Programming learning journey 🐜🐜🐜
+# CUDA Programming 🦕🌊
+My CUDA Programming learning journey.
 
 
 ## Basics
