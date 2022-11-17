@@ -20,3 +20,6 @@ General syntax for launching a kernel, <br />
 ```
 kernel_name<<<NUM_BLOCKS, THREADS_PER_BLOCK>>>(arguments);
 ```
+```
+kernel_name<<<GRID, BLOCK>>>(arguments);
+```
