@@ -15,3 +15,8 @@ Host - CPU <br />
 Device - GPU
 
 Essentially, Host runs sequential operations and Device runs parallel operations.
+
+General syntax for launching a kernel, <br />
+```
+kernel_name<<<NUM_BLOCKS, THREADS_PER_BLOCK>>>(arguments);
+```
