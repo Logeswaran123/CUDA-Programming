@@ -9,3 +9,9 @@ The basic flow in CUDA programming is,
 3. Lauch necessary kernel executions on data.
 4. Tranfer data from GPU to CPU.
 5. Release memory from CPU and GPU.
+
+### Terms usage
+Host - CPU <br />
+Device - GPU
+
+Essentially, Host runs sequential operations and Device runs parallel operations.
