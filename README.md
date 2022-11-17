@@ -10,6 +10,8 @@ The basic flow in CUDA programming is,
 4. Tranfer data from GPU to CPU.
 5. Release memory from CPU and GPU.
 
+![alt text](https://github.com/Logeswaran123/CUDA-Programming/blob/main/images/schematic.jpg "Schematic")
+
 ### Terms usage
 Host - CPU <br />
 Device - GPU
