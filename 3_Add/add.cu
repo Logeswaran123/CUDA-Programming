@@ -64,6 +64,8 @@ int main() {
     PrintOutput(c, arraysize);
 
     cudaFree(device_c);
+    cudaFree(device_b);
+    cudaFree(device_a);
     free(c);    
     cudaDeviceReset();
     return 0;
