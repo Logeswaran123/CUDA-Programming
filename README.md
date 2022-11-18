@@ -20,7 +20,7 @@ Essentially, Host runs sequential operations and Device runs parallel operations
 
 General syntax for launching a kernel, <br />
 ```
-kernel_name<<<NUM_BLOCKS, THREADS_PER_BLOCK>>>(arguments);
+kernel_name<<<BLOCKS_PER_GRID, THREADS_PER_BLOCK>>>(arguments);
 ```
 ```
 kernel_name<<<GRID, BLOCK>>>(arguments);
