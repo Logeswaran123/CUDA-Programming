@@ -62,7 +62,9 @@ int main() {
     cudaMemcpy(c, device_c, sizeof(int) * arraysize, cudaMemcpyDeviceToHost);
     printf("\n\nResult: ");
     PrintOutput(c, arraysize);
-    
+
+    cudaFree(device_c);
+    free(c);    
     cudaDeviceReset();
     return 0;
 }
