@@ -46,7 +46,7 @@ int main() {
 
     // Set block and grid size
     int nx = 5;
-    dim3 block(1);
+    dim3 block(5);
     dim3 grid(nx / block.x);
 
     // Launch Add kernel
@@ -54,7 +54,7 @@ int main() {
     PrintInput(a, arraysize);
     printf("\t + \t");
     PrintInput(b, arraysize);
-    AddKernel<<<block, grid>>>(device_c, device_a, device_b);
+    AddKernel<<<grid, block>>>(device_c, device_a, device_b);
     cudaDeviceSynchronize();
 
     int *c;
