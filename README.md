@@ -36,6 +36,8 @@ The basic flow in CUDA programming is,
 * Multiple thread blocks can execute on same single Streaming Multiprocessor(SM), but one thread block cannot execute on multiple Streaming Multiprocessors.
 * The maximum x, y and z dimensions of a block are 1024, 1024 and 64, and it should be allocated such that x × y × z ≤ 1024, which is the maximum number of threads per block. Blocks can be organized into one, two or three-dimensional grids of up to 2^31-1, 65,535 and 65,535 blocks in the x, y and z dimensions respectively. Unlike the maximum threads per block, there is not a blocks per grid limit distinct from the maximum grid dimensions.
 
+<br />
+
 ![alt text](https://github.com/Logeswaran123/CUDA-Programming/blob/main/images/schematic.jpg "Schematic")
 
 ### General syntax 
