@@ -38,8 +38,6 @@ The basic flow in CUDA programming is,
 
 <br />
 
-![alt text](https://github.com/Logeswaran123/CUDA-Programming/blob/main/images/schematic.jpg "Schematic")
-
 ### General syntax 
 For launching a kernel, <br />
 ```
@@ -48,4 +46,10 @@ kernel_name<<<BLOCKS_PER_GRID, THREADS_PER_BLOCK>>>(arguments);
 ```
 kernel_name<<<GRID, BLOCK>>>(arguments);
 ```
-<br />
+
+## Images
+#### Schematic
+![alt text](https://github.com/Logeswaran123/CUDA-Programming/blob/main/images/schematic.jpg "Schematic")
+
+#### Software vs. Hardware perspective
+![alt text](https://github.com/Logeswaran123/CUDA-Programming/blob/main/images/SoftwarevsHardware.jpg "Software vs. Hardware perspective")
