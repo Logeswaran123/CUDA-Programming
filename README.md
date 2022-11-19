@@ -33,7 +33,7 @@ The basic flow in CUDA programming is,
 
 * Essentially, Host runs sequential operations and Device runs parallel operations.
 * The CUDA architecture is built around a scalable array of multithreaded Streaming Multiprocessors (SMs). When a CUDA program on the host CPU invokes a kernel grid, the blocks of the grid are enumerated and distributed to multiprocessors with available execution capacity. The threads of a thread block execute concurrently on one multiprocessor, and multiple thread blocks can execute concurrently on one multiprocessor. As thread blocks terminate, new blocks are launched on the vacated multiprocessors. Refer [thebeardsage/cuda-streaming-multiprocessors](http://thebeardsage.com/cuda-streaming-multiprocessors/) for detailed explanation.
-* Multiple thread blocks can execute on same single Streaming Multiprocessor(SM), but one thread block cannot execute on multiple Streaming Multiprocessors.
+* Multiple thread blocks can execute on same single Streaming Multiprocessor, but one thread block cannot execute on multiple Streaming Multiprocessors.
 * The maximum x, y and z dimensions of a block are 1024, 1024 and 64, and it should be allocated such that x × y × z ≤ 1024, which is the maximum number of threads per block. Blocks can be organized into one, two or three-dimensional grids of up to 2^31-1, 65,535 and 65,535 blocks in the x, y and z dimensions respectively. Unlike the maximum threads per block, there is not a blocks per grid limit distinct from the maximum grid dimensions.
 
 <br />
