@@ -13,8 +13,22 @@ The basic flow in CUDA programming is,
 ![alt text](https://github.com/Logeswaran123/CUDA-Programming/blob/main/images/schematic.jpg "Schematic")
 
 ### Terms usage
-Host - CPU <br />
-Device - GPU
+|   Term   |  Meaning |
+|----------|----------|
+| SISD | Single Instruction Single Data |
+| SIMD | Single Instruction Multiple Data |
+| MISD | Multiple Instruction Single Data |
+| MIMD | Multiple Instruction Multiple Data |
+| SIMT | Single Instruction Multiple Threads |
+
+<br />
+
+|   Term   |  Meaning |
+|----------|----------|
+| Host | CPU |
+| Device | GPU |
+
+<br />
 
 Essentially, Host runs sequential operations and Device runs parallel operations.
 
