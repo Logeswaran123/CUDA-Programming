@@ -53,3 +53,9 @@ kernel_name<<<GRID, BLOCK>>>(arguments);
 
 #### Software vs. Hardware perspective
 ![alt text](https://github.com/Logeswaran123/CUDA-Programming/blob/main/images/SoftwarevsHardware.jpg "Software vs. Hardware perspective")
+
+## Tools
+* [NVIDIA Nsight Systems](https://developer.nvidia.com/nsight-systems) <br />
+NVIDIA Nsight™ Systems is a system-wide performance analysis tool designed to visualize an application’s algorithms, help you identify the largest opportunities to optimize, and tune to scale efficiently across any quantity or size of CPUs and GPUs, from large servers to our smallest system on a chip (SoC).
+* [NVIDIA Nsight Compute](https://developer.nvidia.com/nsight-compute) <br />
+NVIDIA® Nsight™ Compute is an interactive kernel profiler for CUDA applications. It provides detailed performance metrics and API debugging via a user interface and command line tool. In addition, its baseline feature allows users to compare results within the tool. Nsight Compute provides a customizable and data-driven user interface and metric collection and can be extended with analysis scripts for post-processing results.
