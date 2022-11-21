@@ -59,3 +59,14 @@ kernel_name<<<GRID, BLOCK>>>(arguments);
 NVIDIA Nsight™ Systems is a system-wide performance analysis tool designed to visualize an application’s algorithms, help you identify the largest opportunities to optimize, and tune to scale efficiently across any quantity or size of CPUs and GPUs, from large servers to our smallest system on a chip (SoC).
 * [NVIDIA Nsight Compute](https://developer.nvidia.com/nsight-compute) <br />
 NVIDIA® Nsight™ Compute is an interactive kernel profiler for CUDA applications. It provides detailed performance metrics and API debugging via a user interface and command line tool. In addition, its baseline feature allows users to compare results within the tool. Nsight Compute provides a customizable and data-driven user interface and metric collection and can be extended with analysis scripts for post-processing results.
+
+## Repository Parts
+| Number |   Repository   |  Description |
+|:-----------------:|----------------|--------------|
+| 1 | [Hello World](https://github.com/Logeswaran123/CUDA-Programming/tree/main/1_hello_world) | Programmer's induction. Hello World from GPU |
+| 2 | [Print](https://github.com/Logeswaran123/CUDA-Programming/tree/main/2_print) | Print ThreadIdx, BlockIdx, GridDim |
+| 3 | [Addition](https://github.com/Logeswaran123/CUDA-Programming/tree/main/3_add) | Perform addition operation on GPU |
+| 4 | [Add Arrays](https://github.com/Logeswaran123/CUDA-Programming/tree/main/4_add_arrays) | Perform addition of three arrays on GPU |
+| 5 | [Global Index](https://github.com/Logeswaran123/CUDA-Programming/tree/main/5_gid_calculation) | Calculate Global Index for any dimensional grid and any dimensional block |
+| 6 | [Device properties](https://github.com/Logeswaran123/CUDA-Programming/tree/main/6_device_properties) | Print some GPU device properties |
+| 7 | | |
