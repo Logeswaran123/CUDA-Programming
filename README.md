@@ -1,5 +1,5 @@
 # CUDA Programming 🦕🌊
-[![CUDA Doc](https://img.shields.io/badge/Documentation-CUDA-green.svg)](https://docs.nvidia.com/cuda/)
+[![CUDA Doc](https://img.shields.io/badge/Documentation-CUDA-green.svg)](https://docs.nvidia.com/cuda/) [![Repo parts](https://img.shields.io/badge/Repository%20Parts-Learnings-blue.svg)](https://github.com/Logeswaran123/CUDA-Programming#repository-parts)
 <br /><br />
 My CUDA Programming learning journey.
 
