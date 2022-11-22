@@ -75,7 +75,7 @@ void CompareArrays(int *a, int *b, int size) {
     bool flag = true;
 	for (int  i = 0; i < size; i++) {
 		if (a[i] != b[i]) {
-            flag = false;
+			flag = false;
 			printf("Arrays are different: %d vs. %d at index %d\n\n", a[i], b[i], i);
 		}
 	}
@@ -87,7 +87,7 @@ void CompareArrays(float *a, float *b, int size) {
     bool flag = true;
 	for (int  i = 0; i < size; i++) {
 		if (a[i] != b[i]) {
-            flag = false;
+			flag = false;
 			printf("Arrays are different: %f vs. %f at index %d\n\n", a[i], b[i], i);
 		}
 	}
