@@ -12,7 +12,7 @@ using namespace std;
 
 /* //TODO
 __global__ void ReduceSumGPU(int *input, int *sum, int size) {
-    int tid = threadIdx.x;
+	int tid = threadIdx.x;
 	int gid = blockIdx.x * blockDim.x + tid;
 
 	__syncthreads();
@@ -47,25 +47,25 @@ int main() {
 	cout << "\n-----Reduce Sum with Loop Unroll-----\n" << endl;
 	float gpu_total_milliseconds = 0;
 	float kernel_milliseconds = 0;
-    clock_t cpu_start, cpu_end;
+	clock_t cpu_start, cpu_end;
 	cudaEvent_t gpu_start, gpu_end, kernel_start, kernel_end;
 	cudaEventCreate(&gpu_start);
-    cudaEventCreate(&gpu_end);
+	cudaEventCreate(&gpu_end);
 	cudaEventCreate(&kernel_start);
-    cudaEventCreate(&kernel_end);
-	
+	cudaEventCreate(&kernel_end);
+
 	int size = 1 << 20; // 1MB
 	int block_size = 128;
-    int byte_size = size * sizeof(int);
+	int byte_size = size * sizeof(int);
 
-    int *host_input, *host_ref_unroll;
+	int *host_input, *host_ref_unroll;
 	host_input = (int*)malloc(byte_size);
 
 	InitializeData(host_input, size, INIT_ONE);
 
-    // Perform reduce sum on CPU
+	// Perform reduce sum on CPU
 	cpu_start = clock();
-    int cpu_result = ReductionSumCPU(host_input, size);
+	int cpu_result = ReductionSumCPU(host_input, size);
 	cpu_end = clock();
 
 	dim3 block(block_size);
@@ -74,19 +74,19 @@ int main() {
 	printf("Kernel launch parameters -> grid: (%d,%d,%d), block: (%d,%d,%d) \n\n",
             grid.x, grid.y, grid.z, block.x, block.y, block.z);
 
-    int temp_array_byte_size = sizeof(int)* grid.x;
+	int temp_array_byte_size = sizeof(int)* grid.x;
 	host_ref_unroll = (int*)malloc(temp_array_byte_size);
 
 	int *device_input, *device_temp;
 	GPUErrorCheck(cudaEventRecord(gpu_start, 0));
-    GPUErrorCheck(cudaMalloc((void**)&device_input, byte_size));
+	GPUErrorCheck(cudaMalloc((void**)&device_input, byte_size));
 	GPUErrorCheck(cudaMemcpy(device_input, host_input, byte_size, cudaMemcpyHostToDevice));
-    GPUErrorCheck(cudaMalloc((void**)&device_temp, temp_array_byte_size));
+	GPUErrorCheck(cudaMalloc((void**)&device_temp, temp_array_byte_size));
 	GPUErrorCheck(cudaMemset(device_temp, 0, temp_array_byte_size));
 
-    // Perform reduce sum with loop unroll on GPU
+	// Perform reduce sum with loop unroll on GPU
 	GPUErrorCheck(cudaEventRecord(kernel_start, 0));
-    ReduceSumLoopUnroll<<<grid, block>>>(device_input, device_temp, size);
+	ReduceSumLoopUnroll<<<grid, block>>>(device_input, device_temp, size);
 	GPUErrorCheck(cudaEventRecord(kernel_end, 0));
 	GPUErrorCheck(cudaEventSynchronize(kernel_end));
 
@@ -102,18 +102,18 @@ int main() {
 	GPUErrorCheck(cudaEventElapsedTime(&kernel_milliseconds, kernel_start, kernel_end));
 	GPUErrorCheck(cudaEventElapsedTime(&gpu_total_milliseconds, gpu_start, gpu_end));
 
-    CompareResults(gpu_result, cpu_result);
+	CompareResults(gpu_result, cpu_result);
 
 	printf("CPU execution time (Function Only): %4.6f milliseconds",
 		(double)((double)(cpu_end - cpu_start) / CLOCKS_PER_SEC) * 1000.0);
 	printf("\nGPU Execution Time (Kernel Only): %4.6f milliseconds", kernel_milliseconds);
 	printf("\nTotal GPU Execution Time (Malloc, Memcpy, Kernel): %4.6f milliseconds\n", gpu_total_milliseconds);
 
-    GPUErrorCheck(cudaFree(device_input));
+	GPUErrorCheck(cudaFree(device_input));
 	GPUErrorCheck(cudaFree(device_temp));
-    free(host_input);
+	free(host_input);
 	free(host_ref_unroll);
 
 	GPUErrorCheck(cudaDeviceReset());
-    return 0;
+	return 0;
 }

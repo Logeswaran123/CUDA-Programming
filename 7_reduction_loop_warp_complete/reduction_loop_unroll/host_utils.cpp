@@ -6,7 +6,7 @@ void InitializeData(int *input, const int array_size, INIT_PARAM PARAM, int x) {
 			input[i] = 1;
 		}
 	}
-    else if (PARAM == INIT_RANDOM) {
+	else if (PARAM == INIT_RANDOM) {
 		time_t t;
 		srand((unsigned)time(&t));
 		for (int i = 0; i < array_size; i++) {

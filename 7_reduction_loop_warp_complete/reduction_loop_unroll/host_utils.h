@@ -11,8 +11,8 @@
 
 enum INIT_PARAM {
 	INIT_ZERO,
-    INIT_ONE,
-    INIT_RANDOM,
+	INIT_ONE,
+	INIT_RANDOM,
 };
 
 // Array Initialization
