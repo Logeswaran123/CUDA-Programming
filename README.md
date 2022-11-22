@@ -70,3 +70,6 @@ NVIDIA® Nsight™ Compute is an interactive kernel profiler for CUDA applicatio
 | 5 | [Global Index](https://github.com/Logeswaran123/CUDA-Programming/tree/main/5_gid_calculation) | Calculate Global Index for any dimensional grid and any dimensional block |
 | 6 | [Device properties](https://github.com/Logeswaran123/CUDA-Programming/tree/main/6_device_properties) | Print some GPU device properties |
 | 7 | | |
+
+## References
+* [Indexing cheat sheet](https://cs.calvin.edu/courses/cs/374/CUDA/CUDA-Thread-Indexing-Cheatsheet.pdf)
