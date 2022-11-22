@@ -93,7 +93,7 @@ int main() {
 	GPUErrorCheck(cudaDeviceSynchronize());
 	GPUErrorCheck(cudaMemcpy(host_ref_unroll, device_temp, temp_array_byte_size, cudaMemcpyDeviceToHost));
 
-    int gpu_result = 0;
+	int gpu_result = 0;
 	for (int i = 0; i < grid.x; i++) {
 		gpu_result += host_ref_unroll[i];
 	}
