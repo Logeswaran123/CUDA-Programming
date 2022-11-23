@@ -39,7 +39,9 @@ The basic flow in CUDA programming is,
 * The maximum x, y and z dimensions of a block are 1024, 1024 and 64, and it should be allocated such that x × y × z ≤ 1024, which is the maximum number of threads per block. Blocks can be organized into one, two or three-dimensional grids of up to 2^31-1, 65,535 and 65,535 blocks in the x, y and z dimensions respectively. Unlike the maximum threads per block, there is not a blocks per grid limit distinct from the maximum grid dimensions.
 
 #### <ins>Warps</ins>
-Explanation: TODO
+
+* A warp is the basic unit of execution in a cuda program. A warp is a set of 32 threads within a thread block such that all the threads in a warp execute the same instruction. These threads are selected serially by the Streaming Multiprocessor.
+* If a set of threads execute different instruction compared to other threads of a warp, then warp divergence occurs. This can reduce performance of the cuda program.
 
 #### <ins>Dynamic Parallelism</ins>
  [![Dynamic Parallelism](https://img.shields.io/badge/Dynamic%20Parallelism-Blog-green.svg)](https://developer.nvidia.com/blog/introduction-cuda-dynamic-parallelism/)
@@ -86,6 +88,12 @@ NVIDIA® Nsight™ Compute is an interactive kernel profiler for CUDA applicatio
 | 7a | [Reduce Sum with Loop Unroll](https://github.com/Logeswaran123/CUDA-Programming/tree/main/7_reduction_loop_warp_complete/reduction_loop_unroll) | Perform reduction sum operation with loop unroll in GPU kernel |
 | 7b | [Reduce Sum with Warp Unroll]() | TODO |
 | 7c | [Reduce Sum with Complete Unroll]() | TODO |
+
+## Terms
+|  |  |  |  |  |  |  |  |  |  |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Streaming Multiprocessor | Grid | Thread Block | Thread | Warp | Kernel | _syncthread | Occupancy | Shared memory | Registers |
+| Dynamic parallelism | Parallel reduction | Parent | Child |  |  |  |  |  |  |
 
 ## References
 * [CUDA Thread Indexing cheat sheet](https://cs.calvin.edu/courses/cs/374/CUDA/CUDA-Thread-Indexing-Cheatsheet.pdf)
