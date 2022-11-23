@@ -31,12 +31,26 @@ The basic flow in CUDA programming is,
 
 <br />
 
+#### <ins>General Explanation</ins>
+
 * Essentially, Host runs sequential operations and Device runs parallel operations.
 * The CUDA architecture is built around a scalable array of multithreaded Streaming Multiprocessors (SMs). When a CUDA program on the host CPU invokes a kernel grid, the blocks of the grid are enumerated and distributed to multiprocessors with available execution capacity. The threads of a thread block execute concurrently on one multiprocessor, and multiple thread blocks can execute concurrently on one multiprocessor. As thread blocks terminate, new blocks are launched on the vacated multiprocessors. Refer [thebeardsage/cuda-streaming-multiprocessors](http://thebeardsage.com/cuda-streaming-multiprocessors/) for detailed explanation.
 * Multiple thread blocks can execute on same single Streaming Multiprocessor, but one thread block cannot execute on multiple Streaming Multiprocessors.
 * The maximum x, y and z dimensions of a block are 1024, 1024 and 64, and it should be allocated such that x × y × z ≤ 1024, which is the maximum number of threads per block. Blocks can be organized into one, two or three-dimensional grids of up to 2^31-1, 65,535 and 65,535 blocks in the x, y and z dimensions respectively. Unlike the maximum threads per block, there is not a blocks per grid limit distinct from the maximum grid dimensions.
 
+#### <ins>Warps</ins>
+Explanation: TODO
+
+#### <ins>Dynamic Parallelism</ins>
+ [![Dynamic Parallelism](https://img.shields.io/badge/Dynamic%20Parallelism-Blog-green.svg)](https://developer.nvidia.com/blog/introduction-cuda-dynamic-parallelism/)
 <br />
+
+* Early CUDA programs have been designed in a way that GPU workload was completely in control of Host thread. Programs had to perform a sequence of kernel launches, and for best performance each kernel had to expose enough parallelism to efficiently use the GPU.
+* CUDA 5.0 introduced Dynamic Parallelism, which makes it possible to launch kernels from threads running on the device; threads can launch more threads. An application can launch a coarse-grained kernel which in turn launches finer-grained kernels to do work where needed. This avoids unwanted computations while capturing all interesting details.
+* This reduces the need to transfer control and data between host and GPU device.
+* Kernel executions are classified into Parent and Child grids. Parent grid start execution and dispatches some workload to child grid. Parent grid end the execution when kernel execution is complete. A child grid inherits from the parent grid certain attributes and limits, such as the L1 cache / shared memory configuration and stack size.
+* Grid launches in a device thread is visible across all threads in the thread block. Execution of a thread block is not complete untill all child threads created in the block are complete.
+* Grids launched with dynamic parallelism are fully nested. This means that child grids always complete before the parent grids that launch them, even if there is no explicit synchronization
 
 ### General syntax 
 For launching a kernel, <br />
