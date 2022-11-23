@@ -68,13 +68,13 @@ NVIDIA® Nsight™ Compute is an interactive kernel profiler for CUDA applicatio
 ## Repository Parts
 | Number |   Repository   |  Description |
 |:-----------------:|----------------|--------------|
-| 1 | [Hello World](https://github.com/Logeswaran123/CUDA-Programming/tree/main/1_hello_world) | Programmer's induction. Hello World from GPU |
-| 2 | [Print](https://github.com/Logeswaran123/CUDA-Programming/tree/main/2_print) | Print ThreadIdx, BlockIdx, GridDim |
-| 3 | [Addition](https://github.com/Logeswaran123/CUDA-Programming/tree/main/3_add) | Perform addition operation on GPU |
-| 4 | [Add Arrays](https://github.com/Logeswaran123/CUDA-Programming/tree/main/4_add_arrays) | Perform addition of three arrays on GPU |
-| 5 | [Global Index](https://github.com/Logeswaran123/CUDA-Programming/tree/main/5_gid_calculation) | Calculate Global Index for any dimensional grid and any dimensional block |
-| 6 | [Device properties](https://github.com/Logeswaran123/CUDA-Programming/tree/main/6_device_properties) | Print some GPU device properties |
-| 7a | [Reduce Sum with Loop Unroll](https://github.com/Logeswaran123/CUDA-Programming/tree/main/7_reduction_loop_warp_complete/reduction_loop_unroll) | Perform reduction sum operation with loop unroll in GPU kernel |
+| 1 | [Hello World](https://github.com/Logeswaran123/CUDA-Programming/tree/main/1_hello_world) | Programmer's induction. Hello World from GPU. |
+| 2 | [Print](https://github.com/Logeswaran123/CUDA-Programming/tree/main/2_print) | Print ThreadIdx, BlockIdx, GridDim. |
+| 3 | [Addition](https://github.com/Logeswaran123/CUDA-Programming/tree/main/3_add) | Perform addition operation on GPU. |
+| 4 | [Add Arrays](https://github.com/Logeswaran123/CUDA-Programming/tree/main/4_add_arrays) | Perform addition of three arrays on GPU. |
+| 5 | [Global Index](https://github.com/Logeswaran123/CUDA-Programming/tree/main/5_gid_calculation) | Calculate Global Index for any dimensional grid and any dimensional block. |
+| 6 | [Device properties](https://github.com/Logeswaran123/CUDA-Programming/tree/main/6_device_properties) | Print some GPU device properties. |
+| 7a | [Reduce Sum with Loop Unroll](https://github.com/Logeswaran123/CUDA-Programming/tree/main/7_reduction_loop_warp_complete/reduction_loop_unroll) | Perform reduction sum operation with loop unroll in GPU kernel. |
 | 7b | [Reduce Sum with Warp Unroll](https://github.com/Logeswaran123/CUDA-Programming/tree/main/7_reduction_loop_warp_complete/reduction_warp_unroll) | Perform reduction sum operation with warp unroll in GPU kernel.<br />Solution for warp divergence. |
 | 7c | [Reduce Sum with Complete Unroll](https://github.com/Logeswaran123/CUDA-Programming/tree/main/7_reduction_loop_warp_complete/reduction_complete_unroll) | Perform reduction sum operation with completely unrolled loop in GPU kernel. |
 
