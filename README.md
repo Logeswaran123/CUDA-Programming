@@ -97,3 +97,4 @@ NVIDIA® Nsight™ Compute is an interactive kernel profiler for CUDA applicatio
 
 ## References
 * [CUDA Thread Indexing cheat sheet](https://cs.calvin.edu/courses/cs/374/CUDA/CUDA-Thread-Indexing-Cheatsheet.pdf)
+* [CUDA Refresher Blog](https://developer.nvidia.com/blog/tag/cuda-refresher/)
