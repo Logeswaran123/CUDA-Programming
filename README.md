@@ -29,8 +29,6 @@ The basic flow in CUDA programming is,
 | Device | GPU |
 | SM | Streaming Multiprocessor |
 
-<br />
-
 #### <ins>General Explanation</ins>
 
 * Essentially, Host runs sequential operations and Device runs parallel operations.
@@ -53,15 +51,6 @@ The basic flow in CUDA programming is,
 * Kernel executions are classified into Parent and Child grids. Parent grid start execution and dispatches some workload to child grid. Parent grid end the execution when kernel execution is complete. A child grid inherits from the parent grid certain attributes and limits, such as the L1 cache / shared memory configuration and stack size.
 * Grid launches in a device thread is visible across all threads in the thread block. Execution of a thread block is not complete untill all child threads created in the block are complete.
 * Grids launched with dynamic parallelism are fully nested. This means that child grids always complete before the parent grids that launch them, even if there is no explicit synchronization
-
-### General syntax 
-For launching a kernel, <br />
-```
-kernel_name<<<BLOCKS_PER_GRID, THREADS_PER_BLOCK>>>(arguments);
-```
-```
-kernel_name<<<GRID, BLOCK>>>(arguments);
-```
 
 ## Images
 #### Schematic
