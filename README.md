@@ -76,7 +76,7 @@ NVIDIA® Nsight™ Compute is an interactive kernel profiler for CUDA applicatio
 | 6 | [Device properties](https://github.com/Logeswaran123/CUDA-Programming/tree/main/6_device_properties) | Print some GPU device properties |
 | 7a | [Reduce Sum with Loop Unroll](https://github.com/Logeswaran123/CUDA-Programming/tree/main/7_reduction_loop_warp_complete/reduction_loop_unroll) | Perform reduction sum operation with loop unroll in GPU kernel |
 | 7b | [Reduce Sum with Warp Unroll](https://github.com/Logeswaran123/CUDA-Programming/tree/main/7_reduction_loop_warp_complete/reduction_warp_unroll) | Perform reduction sum operation with warp unroll in GPU kernel.<br />Solution for warp divergence. |
-| 7c | [Reduce Sum with Complete Unroll]() | TODO |
+| 7c | [Reduce Sum with Complete Unroll](https://github.com/Logeswaran123/CUDA-Programming/tree/main/7_reduction_loop_warp_complete/reduction_complete_unroll) | Perform reduction sum operation with completely unrolled loop in GPU kernel. |
 
 ## Terms
 |  |  |  |  |  |  |  |  |  |  |
