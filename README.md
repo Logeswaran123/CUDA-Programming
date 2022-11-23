@@ -84,7 +84,8 @@ NVIDIA® Nsight™ Compute is an interactive kernel profiler for CUDA applicatio
 | 5 | [Global Index](https://github.com/Logeswaran123/CUDA-Programming/tree/main/5_gid_calculation) | Calculate Global Index for any dimensional grid and any dimensional block |
 | 6 | [Device properties](https://github.com/Logeswaran123/CUDA-Programming/tree/main/6_device_properties) | Print some GPU device properties |
 | 7a | [Reduce Sum with Loop Unroll](https://github.com/Logeswaran123/CUDA-Programming/tree/main/7_reduction_loop_warp_complete/reduction_loop_unroll) | Perform reduction sum operation with loop unroll in GPU kernel |
-| 7b |  |
+| 7b | [Reduce Sum with Warp Unroll]() | TODO |
+| 7c | [Reduce Sum with Complete Unroll]() | TODO |
 
 ## References
 * [CUDA Thread Indexing cheat sheet](https://cs.calvin.edu/courses/cs/374/CUDA/CUDA-Thread-Indexing-Cheatsheet.pdf)
