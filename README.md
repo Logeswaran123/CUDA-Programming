@@ -59,6 +59,7 @@ The basic flow in CUDA programming is,
 * Registers are fast on-chip memories that are used to store operands for the operations executed by the computing cores.
 * In general all scalar variables defined in CUDA code are stored in registers. 
 * Registers are local to a thread, and each thread has exclusive access to its own registers. Values in registers cannot be accessed by other threads, even from the same block, and are not available for the host. Registers are also not permanent, therefore data stored in registers is only available during the execution of a thread.
+* <b>Register Spills:</b> If a kernel uses more registers than the hardware limit, the excess registers will spill over to local memory causing performance deterioration.
 
 ## Images
 #### Schematic
