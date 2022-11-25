@@ -124,7 +124,8 @@ NVIDIA® Nsight™ Compute is an interactive kernel profiler for CUDA applicatio
 |  |  |  |  |  |  |  |  |  |  |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | Streaming Multiprocessor | Grid | Thread Block | Thread | Warp | Kernel | _syncthread | Occupancy | Shared memory | Registers |
-| Dynamic parallelism | Parallel reduction | Parent | Child | Temporal locality | Spatial locality |  |  |  |  |
+| Dynamic parallelism | Parallel reduction | Parent | Child | Temporal locality | Spatial locality | Coalesced memory pattern | Un-Coalesced memory pattern | L1 Cache  | L2 Cache |
+|  |  |  |  |  |  |  |  |  |  |
 
 ## References
 * [CUDA Programming Masterclass with C++](https://www.udemy.com/course/cuda-programming-masterclass/)
