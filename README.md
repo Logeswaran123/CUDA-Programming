@@ -52,6 +52,14 @@ The basic flow in CUDA programming is,
 * Grid launches in a device thread is visible across all threads in the thread block. Execution of a thread block is not complete untill all child threads created in the block are complete.
 * Grids launched with dynamic parallelism are fully nested. This means that child grids always complete before the parent grids that launch them, even if there is no explicit synchronization
 
+#### <ins>Registers</ins>
+ [![Registers](https://img.shields.io/badge/Registers-Blog-white.svg)](https://carpentries-incubator.github.io/lesson-gpu-programming/06-global_local_memory/index.html#:~:text=In%20general%20all%20scalar%20variables,not%20available%20for%20the%20host.)
+<br />
+
+* Registers are fast on-chip memories that are used to store operands for the operations executed by the computing cores.
+* In general all scalar variables defined in CUDA code are stored in registers. 
+* Registers are local to a thread, and each thread has exclusive access to its own registers. Values in registers cannot be accessed by other threads, even from the same block, and are not available for the host. Registers are also not permanent, therefore data stored in registers is only available during the execution of a thread.
+
 ## Images
 #### Schematic
 ![alt text](https://github.com/Logeswaran123/CUDA-Programming/blob/main/images/schematic.jpg "Schematic")
