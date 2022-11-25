@@ -83,7 +83,7 @@ There are other types of memory: Global, Constant, Texture. Refer [CUDA Memory M
 #### <ins>Memory Access Patterns</ins>
 * Refer [Nvidia blog](https://developer.nvidia.com/blog/how-access-global-memory-efficiently-cuda-c-kernels/).
 * Refer [Medium article](https://medium.com/distributed-knowledge/cuda-memory-management-use-cases-f9d340f7c704).
-* First memory acccess is L1 cache access (termed as normal cached memory access). When memory request comes to L1 cache, and L1 cache misses, then the request will be sent to L2 cache. If L2 cache misses, then the request will be sent to DRAM. Memory load that doesn't use L1 cache are referred to as un-cached memory read.
+* First memory acccess is L1 cache access (termed as normal cached memory access). When memory request comes to L1 cache, and L1 cache misses, then the request will be sent to L2 cache. If L2 cache misses, then the request will be sent to DRAM. Memory load that doesn't use L1 cache are referred to as un-cached memory acccess.
 
 ## Images
 #### Schematic
