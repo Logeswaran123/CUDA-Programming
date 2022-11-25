@@ -90,6 +90,10 @@ There are other types of memory: Global, Constant, Texture. Refer [CUDA Memory M
 #### <ins>Global Memory Store</ins>
 * In memory write, only L2 cache is used. It is divided into 32 bytes segment.
 
+#### <ins>Array of Structures (AOS) vs. Structure of Arrays (SOA)</ins>
+* Refer (Wiki)[https://en.wikipedia.org/wiki/AoS_and_SoA#:~:text=to%20memory%20coalescing.-,Software%20support,support%20a%20data%2Doriented%20design.] for explanation on AOS and SOA.
+* In CUDA programming, SOA is preferred over AOS for global memory efficiency. This because, in SOA, the array is stored in coalesced fashion reducing number of memory transactions.
+
 ## Images
 #### Schematic
 ![alt text](https://github.com/Logeswaran123/CUDA-Programming/blob/main/images/schematic.jpg "Schematic")
