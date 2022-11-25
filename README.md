@@ -74,7 +74,7 @@ There are other types of memory: Global, Constant, Texture. Refer [CUDA Memory M
  [![Memory Paging](https://img.shields.io/badge/Memory%20Paging-Wiki-white.svg)](https://en.wikipedia.org/wiki/Memory_paging)
 * CUDA uses DMA to transfer pinned memory to GPU device. Pageable memory cannot be directly transfered to device. So, first it's copied to pinned (page-locked) memory and then copied to GPU device.
 * Pinned to Device transfer is faster than Pageable to Device transfer.
-* <b>cudaMallocHost</b> and <b>cudaFreeHost</b> functions can be used to allocated pinned memory directly.
+* <b>cudaMallocHost</b> and <b>cudaFreeHost</b> functions can be used to allocate pinned memory directly.
 * Refer [Nvidia blog](https://developer.nvidia.com/blog/how-optimize-data-transfers-cuda-cc/#:~:text=execution%20time%20correspondingly.-,Pinned%20Host%20Memory,-Host%20(CPU)%20data) for details.
 
 ## Images
