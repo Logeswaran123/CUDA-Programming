@@ -43,8 +43,6 @@ The basic flow in CUDA programming is,
 
 #### <ins>Dynamic Parallelism</ins>
  [![Dynamic Parallelism](https://img.shields.io/badge/Dynamic%20Parallelism-Blog-green.svg)](https://developer.nvidia.com/blog/introduction-cuda-dynamic-parallelism/)
-<br />
-
 * Early CUDA programs have been designed in a way that GPU workload was completely in control of Host thread. Programs had to perform a sequence of kernel launches, and for best performance each kernel had to expose enough parallelism to efficiently use the GPU.
 * CUDA 5.0 introduced Dynamic Parallelism, which makes it possible to launch kernels from threads running on the device; threads can launch more threads. An application can launch a coarse-grained kernel which in turn launches finer-grained kernels to do work where needed. This avoids unwanted computations while capturing all interesting details.
 * This reduces the need to transfer control and data between host and GPU device.
@@ -54,8 +52,6 @@ The basic flow in CUDA programming is,
 
 #### <ins>Registers</ins>
  [![Registers](https://img.shields.io/badge/Registers-Blog-white.svg)](https://carpentries-incubator.github.io/lesson-gpu-programming/06-global_local_memory/index.html#:~:text=CUDA%20programming%20model.-,Registers,-Registers%20are%20fast)
-<br />
-
 * Registers are fast on-chip memories that are used to store operands for the operations executed by the computing cores.
 * In general all scalar variables defined in CUDA code are stored in registers. 
 * Registers are local to a thread, and each thread has exclusive access to its own registers. Values in registers cannot be accessed by other threads, even from the same block, and are not available for the host. Registers are also not permanent, therefore data stored in registers is only available during the execution of a thread.
@@ -66,6 +62,11 @@ The basic flow in CUDA programming is,
 * Variables that cannot be stored in register space are stored in local memory. Memory that cannot be decided at compile time are stored in local memory.
 * Memory can also be statically allocated from within a kernel, and according to the CUDA programming model such memory will not be global but local memory.
 * Local memory is only visible, and therefore accessible, by the thread allocating it. So all threads executing a kernel will have their own privately allocated local memory.
+
+#### <ins>Shared Memory</ins>
+[![Shared Memory](https://img.shields.io/badge/Shared%20Memory-Blog-white.svg)](https://developer.nvidia.com/blog/using-shared-memory-cuda-cc/)
+* On-chip memory shared/partitioned among thread blocks. Lifetime is lifetime of execution of the thread block.
+* Shared memory is allocated per thread block, so all threads in the block have access to the same shared memory. Threads can access data in shared memory loaded from global memory by other threads within the same thread block.
 
 ## Images
 #### Schematic
