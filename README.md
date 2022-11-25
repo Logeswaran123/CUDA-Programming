@@ -80,6 +80,10 @@ There are other types of memory: Global, Constant, Texture. Refer [CUDA Memory M
 * <b>cudaMallocHost</b> and <b>cudaFreeHost</b> functions can be used to allocate pinned memory directly.
 * Refer [Nvidia blog](https://developer.nvidia.com/blog/how-optimize-data-transfers-cuda-cc/#:~:text=execution%20time%20correspondingly.-,Pinned%20Host%20Memory,-Host%20(CPU)%20data) for details.
 
+#### <ins>Memory Access Patterns</ins>
+* Refer [Nvidia blog](https://developer.nvidia.com/blog/how-access-global-memory-efficiently-cuda-c-kernels/).
+* Refer [Medium article](https://medium.com/distributed-knowledge/cuda-memory-management-use-cases-f9d340f7c704).
+
 ## Images
 #### Schematic
 ![alt text](https://github.com/Logeswaran123/CUDA-Programming/blob/main/images/schematic.jpg "Schematic")
