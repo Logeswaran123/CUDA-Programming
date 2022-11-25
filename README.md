@@ -53,13 +53,19 @@ The basic flow in CUDA programming is,
 * Grids launched with dynamic parallelism are fully nested. This means that child grids always complete before the parent grids that launch them, even if there is no explicit synchronization
 
 #### <ins>Registers</ins>
- [![Registers](https://img.shields.io/badge/Registers-Blog-white.svg)](https://carpentries-incubator.github.io/lesson-gpu-programming/06-global_local_memory/index.html#:~:text=In%20general%20all%20scalar%20variables,not%20available%20for%20the%20host.)
+ [![Registers](https://img.shields.io/badge/Registers-Blog-white.svg)](https://carpentries-incubator.github.io/lesson-gpu-programming/06-global_local_memory/index.html#:~:text=CUDA%20programming%20model.-,Registers,-Registers%20are%20fast)
 <br />
 
 * Registers are fast on-chip memories that are used to store operands for the operations executed by the computing cores.
 * In general all scalar variables defined in CUDA code are stored in registers. 
 * Registers are local to a thread, and each thread has exclusive access to its own registers. Values in registers cannot be accessed by other threads, even from the same block, and are not available for the host. Registers are also not permanent, therefore data stored in registers is only available during the execution of a thread.
 * <b>Register Spills:</b> If a kernel uses more registers than the hardware limit, the excess registers will spill over to local memory causing performance deterioration.
+
+#### <ins>Local Memory</ins>
+ [![Local Memory](https://img.shields.io/badge/Local%20Memory-Blog-white.svg)](https://carpentries-incubator.github.io/lesson-gpu-programming/06-global_local_memory/index.html#:~:text=the%20kernel%20terminates.-,Local%20Memory,-Memory%20can%20also)
+* Variables that cannot be stored in register space are stored in local memory. Memory that cannot be decided at compile time are stored in local memory.
+* Memory can also be statically allocated from within a kernel, and according to the CUDA programming model such memory will not be global but local memory.
+* Local memory is only visible, and therefore accessible, by the thread allocating it. So all threads executing a kernel will have their own privately allocated local memory.
 
 ## Images
 #### Schematic
