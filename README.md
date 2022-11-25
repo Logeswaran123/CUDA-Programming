@@ -50,6 +50,9 @@ The basic flow in CUDA programming is,
 * Grid launches in a device thread is visible across all threads in the thread block. Execution of a thread block is not complete untill all child threads created in the block are complete.
 * Grids launched with dynamic parallelism are fully nested. This means that child grids always complete before the parent grids that launch them, even if there is no explicit synchronization
 
+### CUDA Memory Management
+Refer [CUDA Runtime API documentation](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__MEMORY.html#group__CUDART__MEMORY) for details.
+
 #### <ins>Registers (On-Chip)</ins>
  [![Registers](https://img.shields.io/badge/Registers-Blog-white.svg)](https://carpentries-incubator.github.io/lesson-gpu-programming/06-global_local_memory/index.html#:~:text=CUDA%20programming%20model.-,Registers,-Registers%20are%20fast)
 * Registers are fast on-chip memories that are used to store operands for the operations executed by the computing cores.
