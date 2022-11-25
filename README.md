@@ -80,10 +80,13 @@ There are other types of memory: Global, Constant, Texture. Refer [CUDA Memory M
 * <b>cudaMallocHost</b> and <b>cudaFreeHost</b> functions can be used to allocate pinned memory directly.
 * Refer [Nvidia blog](https://developer.nvidia.com/blog/how-optimize-data-transfers-cuda-cc/#:~:text=execution%20time%20correspondingly.-,Pinned%20Host%20Memory,-Host%20(CPU)%20data) for details.
 
-#### <ins>Memory Access Patterns</ins>
+#### <ins>Global Memory Access Patterns</ins>
 * Refer [Nvidia blog](https://developer.nvidia.com/blog/how-access-global-memory-efficiently-cuda-c-kernels/).
 * Refer [Medium article](https://medium.com/distributed-knowledge/cuda-memory-management-use-cases-f9d340f7c704).
 * First memory acccess is L1 cache access (termed as normal cached memory access). When memory request comes to L1 cache, and L1 cache misses, then the request will be sent to L2 cache. If L2 cache misses, then the request will be sent to DRAM. Memory load that doesn't use L1 cache are referred to as un-cached memory acccess.
+
+#### <ins>Global Memory Store</ins>
+* In memory write, only L2 cache is used.
 
 ## Images
 #### Schematic
