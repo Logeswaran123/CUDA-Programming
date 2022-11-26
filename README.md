@@ -66,6 +66,7 @@ Refer [CUDA Runtime API documentation](https://docs.nvidia.com/cuda/cuda-runtime
 [![Shared Memory](https://img.shields.io/badge/Shared%20Memory-Blog-white.svg)](https://developer.nvidia.com/blog/using-shared-memory-cuda-cc/)
 * On-chip memory shared/partitioned among thread blocks. Lifetime is lifetime of execution of the thread block.
 * Shared memory is allocated per thread block, so all threads in the block have access to the same shared memory. Threads can access data in shared memory loaded from global memory by other threads within the same thread block.
+* It's only useful when data needs to be accessed more than once, either within the same thread or from different threads within the same block.
 
 #### <ins>Local Memory</ins>
  [![Local Memory](https://img.shields.io/badge/Local%20Memory-Blog-white.svg)](https://carpentries-incubator.github.io/lesson-gpu-programming/06-global_local_memory/index.html#:~:text=the%20kernel%20terminates.-,Local%20Memory,-Memory%20can%20also)
