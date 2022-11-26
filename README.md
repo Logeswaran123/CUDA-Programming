@@ -94,6 +94,13 @@ There are other types of memory: Global, Constant, Texture. Refer [CUDA Memory M
 * Refer [Wiki](https://en.wikipedia.org/wiki/AoS_and_SoA#:~:text=to%20memory%20coalescing.-,Software%20support,support%20a%20data%2Doriented%20design.) for explanation on AOS and SOA.
 * In CUDA programming, SOA is preferred over AOS for global memory efficiency. This because, in SOA, the array is stored in coalesced fashion reducing number of memory transactions.
 
+#### <ins>Partition Camping</ins>
+ [![Partition Camping](https://img.shields.io/badge/Partition%20Camping%20and%20Matrix%20Transpose-Slides-white.svg)](https://www.csd.uwo.ca/~mmorenom/HPC-Slides/Optimizing_CUDA_Code-2x2.pdf)
+ * Partition camping occurs when global memory accesses are directed through a subset of partitions, causing requests to queue up at some partitions while other partitions go unused.
+ * Since partition camping concerns how active thread blocks behave,
+the issue of how thread blocks are scheduled on multiprocessors is
+important.
+
 ## Images
 #### Schematic
 ![alt text](https://github.com/Logeswaran123/CUDA-Programming/blob/main/images/schematic.jpg "Schematic")
