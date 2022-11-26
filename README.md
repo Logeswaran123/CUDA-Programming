@@ -135,6 +135,7 @@ NVIDIA® Nsight™ Compute is an interactive kernel profiler for CUDA applicatio
 | 7c | [Reduce Sum with Complete Unroll](https://github.com/Logeswaran123/CUDA-Programming/tree/main/7_reduction_loop_warp_complete/reduction_complete_unroll) | Perform reduction sum operation with completely unrolled loop in GPU kernel. |
 | 8 | [Coalesced vs. Un-Coalesced memory pattern]() | TODO |
 | 9 | [Matrix Transpose](https://github.com/Logeswaran123/CUDA-Programming/tree/main/9_matrix_transpose) | Perform Matrix transpose in different fashion. |
+| 10 | [Static and Dynamic Shared Memory]() | TODO |
 
 ## Terms
 |  |  |  |  |  |  |  |  |  |  |
