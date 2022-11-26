@@ -50,6 +50,8 @@ The basic flow in CUDA programming is,
 * Grid launches in a device thread is visible across all threads in the thread block. Execution of a thread block is not complete untill all child threads created in the block are complete.
 * Grids launched with dynamic parallelism are fully nested. This means that child grids always complete before the parent grids that launch them, even if there is no explicit synchronization
 
+---
+
 ### CUDA Memory Management
 Refer [CUDA Runtime API documentation](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__MEMORY.html#group__CUDART__MEMORY) for details.
 
@@ -72,6 +74,8 @@ Refer [CUDA Runtime API documentation](https://docs.nvidia.com/cuda/cuda-runtime
 * Local memory is only visible, and therefore accessible, by the thread allocating it. So all threads executing a kernel will have their own privately allocated local memory.
 
 There are other types of memory: Global, Constant, Texture. Refer [CUDA Memory Model](https://www.3dgep.com/cuda-memory-model/#CUDA_Memory_Types) for details.
+
+---
 
 #### <ins>Pinned memory</ins>
  [![Memory Paging](https://img.shields.io/badge/Memory%20Paging-Wiki-white.svg)](https://en.wikipedia.org/wiki/Memory_paging)
