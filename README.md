@@ -63,7 +63,7 @@ Refer [CUDA Runtime API documentation](https://docs.nvidia.com/cuda/cuda-runtime
 * <b>Register Spills:</b> If a kernel uses more registers than the hardware limit, the excess registers will spill over to local memory causing performance deterioration.
 
 #### <ins>Shared Memory (On-Chip)</ins>
-[![Shared Memory](https://img.shields.io/badge/Shared%20Memory-Blog-white.svg)](https://developer.nvidia.com/blog/using-shared-memory-cuda-cc/)
+[![Shared Memory](https://img.shields.io/badge/Shared%20Memory-Blog-white.svg)](https://developer.nvidia.com/blog/using-shared-memory-cuda-cc/) [![Shared Memory conflict](https://img.shields.io/badge/Shared%20Memory%20conflict-Blog-white.svg)](http://cuda-programming.blogspot.com/2013/02/bank-conflicts-in-shared-memory-in-cuda.html)
 * On-chip memory shared/partitioned among thread blocks. Lifetime is lifetime of execution of the thread block.
 * Shared memory is allocated per thread block, so all threads in the block have access to the same shared memory. Threads can access data in shared memory loaded from global memory by other threads within the same thread block.
 * It's only useful when data needs to be accessed more than once, either within the same thread or from different threads within the same block.
