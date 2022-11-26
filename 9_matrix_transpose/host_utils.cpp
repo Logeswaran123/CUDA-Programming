@@ -119,6 +119,7 @@ float ReductionSumCPU(float *input, const int size) {
 
 void MatrixTranposeCPU(int *matrix, int *transposed, int num_cols, int num_rows) {
 	// Read in Row major order
+	// Write in Column major order
 	for (int iy = 0; iy < num_rows; iy++) {
 		for (int  ix = 0; ix < num_cols; ix++) {
 			transposed[ix * num_rows + iy] = matrix[iy * num_cols + ix];

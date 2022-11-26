@@ -77,15 +77,15 @@ __global__ void Transpose2_Unroll(int *matrix, int *transposed, int num_cols, in
 }
 
 __global__ void TransposeDiagonal(int *matrix, int *transposed, int num_cols, int num_rows) {
-	int blk_x = blockIdx.x;
-	int blk_y = (blockIdx.x + blockIdx.y) % gridDim.x;
+    int blk_x = blockIdx.x;
+    int blk_y = (blockIdx.x + blockIdx.y) % gridDim.x;
 
-	int ix = blockIdx.x * blk_x + threadIdx.x;
-	int iy = blockIdx.y * blk_y + threadIdx.y;
+    int ix = blockIdx.x * blk_x + threadIdx.x;
+    int iy = blockIdx.y * blk_y + threadIdx.y;
 
-	if (ix < num_cols && iy < num_rows) {
-		transposed[ix * num_rows + iy] = matrix[iy * num_cols + ix];
-	}
+    if (ix < num_cols && iy < num_rows) {
+        transposed[ix * num_rows + iy] = matrix[iy * num_cols + ix];
+    }
 }
 
 int main() {
