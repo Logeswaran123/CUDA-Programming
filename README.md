@@ -77,6 +77,13 @@ Refer [CUDA Runtime API documentation](https://docs.nvidia.com/cuda/cuda-runtime
 * Memory can also be statically allocated from within a kernel, and according to the CUDA programming model such memory will not be global but local memory.
 * Local memory is only visible, and therefore accessible, by the thread allocating it. So all threads executing a kernel will have their own privately allocated local memory.
 
+#### <ins>Constant Memory</ins>
+ [![Constant Memory](https://img.shields.io/badge/Constant%20Memory-Blog-white.svg)](https://www.tutorialspoint.com/cuda/cuda_memories.htm)
+* It is used for storing data that will not change over the course of kernel execution. It supports short-latency, high-bandwidth, read-only access by the device when all threads simultaneously access the same location.
+* Constant memory is better used when all threads in a warp access the same memory location. Lifetime is lifetime of the program.
+* Access latency to constant memory is considerably faster than global memory because constant memory is cached but unlike global memory, constant memory cannot be written to from within the kernel.
+* As device can only read from constant memory, the data must be initialized from the host.
+
 There are other types of memory: Global, Constant, Texture. Refer [CUDA Memory Model](https://www.3dgep.com/cuda-memory-model/#CUDA_Memory_Types) for details.
 
 ---
