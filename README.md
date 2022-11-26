@@ -68,6 +68,7 @@ Refer [CUDA Runtime API documentation](https://docs.nvidia.com/cuda/cuda-runtime
 * Shared memory is allocated per thread block, so all threads in the block have access to the same shared memory. Threads can access data in shared memory loaded from global memory by other threads within the same thread block.
 * It's only useful when data needs to be accessed more than once, either within the same thread or from different threads within the same block.
 * Shared memory requests are issued per warp. Shared memory is divided into 32 equally sized memory banks, because size of a warp is 32 threads.
+* Shared memory access modes: 32bit, 64bit
 
 #### <ins>Local Memory</ins>
  [![Local Memory](https://img.shields.io/badge/Local%20Memory-Blog-white.svg)](https://carpentries-incubator.github.io/lesson-gpu-programming/06-global_local_memory/index.html#:~:text=the%20kernel%20terminates.-,Local%20Memory,-Memory%20can%20also)
