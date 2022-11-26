@@ -79,8 +79,8 @@ Refer [CUDA Runtime API documentation](https://docs.nvidia.com/cuda/cuda-runtime
 
 #### <ins>Constant Memory</ins>
  [![Constant Memory](https://img.shields.io/badge/Constant%20Memory-Blog-white.svg)](https://www.tutorialspoint.com/cuda/cuda_memories.htm)
-* It is used for storing data that will not change over the course of kernel execution. It supports short-latency, high-bandwidth, read-only access by the device when all threads simultaneously access the same location.
-* Constant memory is better used when all threads in a warp access the same memory location. Lifetime is lifetime of the program.
+* Constant memory is used for storing data that will not change over the course of kernel execution. It supports short-latency, high-bandwidth, read-only access by the device when all threads simultaneously access the same location.
+* It is better used when all threads in a warp access the same memory location. Lifetime is lifetime of the program.
 * Access latency to constant memory is considerably faster than global memory because constant memory is cached but unlike global memory, constant memory cannot be written to from within the kernel.
 * As device can only read from constant memory, the data must be initialized from the host.
 
