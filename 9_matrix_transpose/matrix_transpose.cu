@@ -10,6 +10,9 @@
 
 using namespace std;
 
+#define BLOCKDIM_X 128
+#define BLOCKDIM_Y 8
+
 __global__ void Transpose1(int *matrix, int *transposed, int num_cols, int num_rows) {
     // Read row
     // Write column
@@ -88,6 +91,59 @@ __global__ void TransposeDiagonal(int *matrix, int *transposed, int num_cols, in
     }
 }
 
+__global__ void TransposeSMem(int *matrix, int *transposed, int num_cols, int num_rows) {
+    // Previous transposes access either input or output matrix
+    // in non-coalesced fashion. This causes extra memory transactions between
+    // Global Memory and Streaming Multiprocessor.
+    // This can be avoided using Shared Memory.
+
+    // Read from Input matrix in Row Major format,
+    // Store to Shared Memory in Row Major format,
+    // Read from Shared Memory in Column Major format,
+    // Store to Output matrix in Row Major format.
+
+    __shared__ int tile[BLOCKDIM_Y][BLOCKDIM_X];
+
+    int ix, iy, in_index;
+    int i_row, i_col, _1d_index, out_ix, out_iy, out_index;
+
+    // ix and iy calculation for Input index
+    ix = blockDim.x * blockIdx.x + threadIdx.x;
+    iy = blockDim.y * blockIdx.y + threadIdx.y;
+
+    // Input array 1D index calculation
+    in_index = iy * num_cols + ix;
+
+    // Shared Memory access in Column Major format
+    // 1D index calculation
+    _1d_index = threadIdx.y * blockDim.x + threadIdx.x;
+
+    // Column Major Row and Column Index Calcuation
+    i_row = _1d_index / blockDim.y;
+    i_col = _1d_index % blockDim.y;
+
+    // Coordinate for transposed matrix
+    out_ix = blockIdx.y * blockDim.y + i_col;
+    out_iy = blockIdx.x * blockDim.x + i_row;
+
+    // Output array 1D index calculation
+    // Output array access in Row Major format
+    out_index = out_iy * num_rows + out_ix;
+
+    if (ix < num_cols && iy < num_rows) {
+        // Load from input array in Row Major,
+        // Store to Shared Memory in Row Major
+        tile[threadIdx.y][threadIdx.x] = matrix[in_index];
+
+        // Wait till all threads load values
+        __syncthreads();
+
+        // Read from Shared Memory in Column Major,
+        // Store to output array in Row Major
+        transposed[out_index] = tile[i_col][i_row];
+    }
+}
+
 int main() {
     cout << "\n---------------------Matrix Transpose---------------------\n" << endl;
     clock_t cpu_start, cpu_end;
@@ -114,8 +170,8 @@ int main() {
 
     /***************************************************************************/
     float kernel_milliseconds = 0;
-    int block_x = 128;
-    int block_y = 8;
+    int block_x = BLOCKDIM_X;
+    int block_y = BLOCKDIM_Y;
     cudaEvent_t kernel_start, kernel_end;
     cudaEventCreate(&kernel_start);
     cudaEventCreate(&kernel_end);
@@ -216,6 +272,24 @@ int main() {
 
     // GPUErrorCheck(cudaEventElapsedTime(&kernel_milliseconds, kernel_start, kernel_end));
     // printf("GPU Execution Time (Kernel Only): %4.6f milliseconds\n", kernel_milliseconds);
+
+    // Transpose: Using Shared Memory
+    cout << "\n-----Transpose on Device: Using Shared Memory-----" << endl;
+    GPUErrorCheck(cudaMalloc((void**)&device_transposed, byte_size));
+    GPUErrorCheck(cudaEventRecord(kernel_start, 0));
+    TransposeSMem<<<grid, blocks>>>(device_matrix, device_transposed, num_cols, num_rows);
+    GPUErrorCheck(cudaEventRecord(kernel_end, 0));
+    GPUErrorCheck(cudaEventSynchronize(kernel_end));
+    GPUErrorCheck(cudaDeviceSynchronize());
+
+    device_result = (int*)malloc(byte_size);
+    GPUErrorCheck(cudaMemcpy(device_result, device_transposed, byte_size, cudaMemcpyDeviceToHost));
+    CompareArrays(host_transposed, device_result, size);
+    GPUErrorCheck(cudaFree(device_transposed));
+    free(device_result);
+
+    GPUErrorCheck(cudaEventElapsedTime(&kernel_milliseconds, kernel_start, kernel_end));
+    printf("GPU Execution Time (Kernel Only): %4.6f milliseconds\n", kernel_milliseconds);
 
     GPUErrorCheck(cudaFree(device_matrix));
     free(host_transposed);
