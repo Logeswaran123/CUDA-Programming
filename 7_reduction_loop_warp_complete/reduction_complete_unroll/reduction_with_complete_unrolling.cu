@@ -34,6 +34,7 @@ __global__ void ReduceSumCompleteUnroll(int *input, int *temp, int size) {
 
 	// Complete unrolling
 	// Unrolling based on block size
+	// In-place Reduction
 	if (block_size >= 1024 && tid < 512)
 		i_data[tid] += i_data[tid + 512];
 
@@ -70,8 +71,71 @@ __global__ void ReduceSumCompleteUnroll(int *input, int *temp, int size) {
 	}
 }
 
+template<unsigned int block_size>
+__global__ void ReduceSumCompleteUnrollSMem(int *input, int *temp, int size) {
+	__shared__ int smem[block_size];
+	unsigned int tid = threadIdx.x;
+
+	// Global index
+	// 4 blocks of input data processed at a time
+	int block_offset = blockIdx.x * blockDim.x * 4;  
+	unsigned int index = block_offset + tid;  
+
+	int temp_sum = 0;
+
+	// Unrolling 4 blocks
+	if (index + 3 * blockDim.x <= size) { // Boundary check
+		int val1 = input[index + 0 * blockDim.x];
+		int val2 = input[index + 1 * blockDim.x];
+		int val3 = input[index + 2 * blockDim.x];
+		int val4 = input[index + 3 * blockDim.x];
+		temp_sum = val1 + val2 + val3 + val4;
+	}
+
+	smem[tid] = temp_sum;
+
+	__syncthreads();
+
+	// Complete unrolling
+	// Unrolling based on block size
+	// In-place Reduction in Shared Memory
+	if (block_size >= 1024 && tid < 512) {
+		smem[tid] += smem[tid + 512];
+	}
+	__syncthreads();
+
+	if (block_size >= 512 && tid < 256) {
+		smem[tid] += smem[tid + 256];
+	}
+	__syncthreads();
+
+	if (block_size >= 256 && tid < 128) {
+		smem[tid] += smem[tid + 128];
+	}
+	__syncthreads();
+
+	if (block_size >= 128 && tid < 64) {
+		smem[tid] += smem[tid + 64];
+	}
+	__syncthreads();
+
+	// Warp unrolling
+	if (tid < 32) {
+		volatile int * vsmem = smem;
+		vsmem[tid] += vsmem[tid + 32];
+		vsmem[tid] += vsmem[tid + 16];
+		vsmem[tid] += vsmem[tid + 8];
+		vsmem[tid] += vsmem[tid + 4];
+		vsmem[tid] += vsmem[tid + 2];
+		vsmem[tid] += vsmem[tid + 1];
+	}
+
+	if (tid == 0) {
+		temp[blockIdx.x] = smem[0];
+	}
+}
+
 int main() {
-	cout << "\n-----Reduce Sum with Complete Unroll-----\n" << endl;
 	float gpu_total_milliseconds = 0;
 	float kernel_milliseconds = 0;
 	clock_t cpu_start, cpu_end;
@@ -82,7 +146,7 @@ int main() {
 	cudaEventCreate(&kernel_end);
 
 	int size = 1 << 20; // 1MB
-	int block_size = 128;
+	int block_size = 1024;
 	int byte_size = size * sizeof(int);
 
 	int *host_input, *host_ref_unroll;
@@ -91,17 +155,22 @@ int main() {
 	InitializeData(host_input, size, INIT_ONE);
 
 	// Perform reduce sum on CPU
+	cout << "\n-----CPU: Reduce Sum-----\n" << endl;
 	cpu_start = clock();
 	int cpu_result = ReductionSumCPU(host_input, size);
 	cpu_end = clock();
 
+	printf("CPU execution time (Function Only): %4.6f milliseconds",
+		(double)((double)(cpu_end - cpu_start) / CLOCKS_PER_SEC) * 1000.0);
+
+	int gpu_result = 0;
 	dim3 block(block_size);
 	dim3 grid(ceil((size / block_size) / 2));
 
-	printf("Kernel launch parameters -> grid: (%d,%d,%d), block: (%d,%d,%d) \n\n",
+	printf("\nKernel launch parameters -> grid: (%d,%d,%d), block: (%d,%d,%d) \n",
             grid.x, grid.y, grid.z, block.x, block.y, block.z);
 
-	int temp_array_byte_size = sizeof(int)* grid.x;
+	int temp_array_byte_size = sizeof(int) * grid.x;
 	host_ref_unroll = (int*)malloc(temp_array_byte_size);
 
 	int *device_input, *device_temp;
@@ -112,6 +181,7 @@ int main() {
 	GPUErrorCheck(cudaMemset(device_temp, 0, temp_array_byte_size));
 
 	// Perform reduce sum with complete unroll on GPU
+	cout << "\n-----Device: Reduce Sum with Complete Unroll-----\n" << endl;
 	GPUErrorCheck(cudaEventRecord(kernel_start, 0));
 	switch(block_size) {
 		case 1024:
@@ -133,7 +203,6 @@ int main() {
 	GPUErrorCheck(cudaDeviceSynchronize());
 	GPUErrorCheck(cudaMemcpy(host_ref_unroll, device_temp, temp_array_byte_size, cudaMemcpyDeviceToHost));
 
-	int gpu_result = 0;
 	for (int i = 0; i < grid.x; i++) {
 		gpu_result += host_ref_unroll[i];
 	}
@@ -144,15 +213,55 @@ int main() {
 
 	CompareResults(gpu_result, cpu_result);
 
-	printf("CPU execution time (Function Only): %4.6f milliseconds",
-		(double)((double)(cpu_end - cpu_start) / CLOCKS_PER_SEC) * 1000.0);
-	printf("\nGPU Execution Time (Kernel Only): %4.6f milliseconds", kernel_milliseconds);
+	printf("GPU Execution Time (Kernel Only): %4.6f milliseconds", kernel_milliseconds);
 	printf("\nTotal GPU Execution Time (Malloc, Memcpy, Kernel): %4.6f milliseconds\n", gpu_total_milliseconds);
 
-	GPUErrorCheck(cudaFree(device_input));
 	GPUErrorCheck(cudaFree(device_temp));
-	free(host_input);
 	free(host_ref_unroll);
+
+	grid.x = ceil((size / block_size) / 4);
+	temp_array_byte_size = sizeof(int) * grid.x;
+	host_ref_unroll = (int*)malloc(temp_array_byte_size);
+	memset(host_ref_unroll, 0, temp_array_byte_size);
+	GPUErrorCheck(cudaMalloc((void**)&device_temp, temp_array_byte_size));
+	GPUErrorCheck(cudaMemset(device_temp, 0, temp_array_byte_size));
+
+	cout << "\n-----Device: Reduce Sum using Shared Memory with Complete Unroll-----\n" << endl;
+	GPUErrorCheck(cudaEventRecord(kernel_start, 0));
+	switch(block_size) {
+		case 1024:
+			ReduceSumCompleteUnrollSMem<1024><<<grid, block>>>(device_input, device_temp, size);
+			break;
+		case 512:
+			ReduceSumCompleteUnrollSMem<512><<<grid, block>>>(device_input, device_temp, size);
+			break;
+		case 256:
+			ReduceSumCompleteUnrollSMem<256><<<grid, block>>>(device_input, device_temp, size);
+			break;
+		case 128:
+			ReduceSumCompleteUnrollSMem<128><<<grid, block>>>(device_input, device_temp, size);
+			break;
+	}
+	GPUErrorCheck(cudaEventRecord(kernel_end, 0));
+	GPUErrorCheck(cudaEventSynchronize(kernel_end));
+	GPUErrorCheck(cudaDeviceSynchronize());
+
+	GPUErrorCheck(cudaMemcpy(host_ref_unroll, device_temp, temp_array_byte_size, cudaMemcpyDeviceToHost));
+
+	gpu_result = 0;
+	for (int i = 0; i < grid.x; i++) {
+		gpu_result += host_ref_unroll[i];
+	}
+	CompareResults(gpu_result, cpu_result);
+
+	GPUErrorCheck(cudaEventElapsedTime(&kernel_milliseconds, kernel_start, kernel_end));
+	printf("GPU Execution Time (Kernel Only): %4.6f milliseconds", kernel_milliseconds);
+
+	GPUErrorCheck(cudaFree(device_temp));
+	free(host_ref_unroll);
+
+	GPUErrorCheck(cudaFree(device_input));
+	free(host_input);
 
 	GPUErrorCheck(cudaDeviceReset());
 	return 0;
