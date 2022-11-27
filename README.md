@@ -42,7 +42,7 @@ The basic flow in CUDA programming is,
 * If a set of threads execute different instruction compared to other threads of a warp, then warp divergence occurs. This can reduce performance of the cuda program.
 
 #### <ins>Dynamic Parallelism</ins>
- [![Dynamic Parallelism](https://img.shields.io/badge/Dynamic%20Parallelism-Blog-green.svg)](https://developer.nvidia.com/blog/introduction-cuda-dynamic-parallelism/)
+ [![Dynamic Parallelism](https://img.shields.io/badge/Dynamic%20Parallelism-Blog-white.svg)](https://developer.nvidia.com/blog/introduction-cuda-dynamic-parallelism/)
 * Early CUDA programs have been designed in a way that GPU workload was completely in control of Host thread. Programs had to perform a sequence of kernel launches, and for best performance each kernel had to expose enough parallelism to efficiently use the GPU.
 * CUDA 5.0 introduced Dynamic Parallelism, which makes it possible to launch kernels from threads running on the device; threads can launch more threads. An application can launch a coarse-grained kernel which in turn launches finer-grained kernels to do work where needed. This avoids unwanted computations while capturing all interesting details.
 * This reduces the need to transfer control and data between host and GPU device.
