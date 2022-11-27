@@ -181,14 +181,14 @@ int main() {
     GPUErrorCheck(cudaMalloc((void**)&device_matrix, byte_size));
     GPUErrorCheck(cudaMemcpy(device_matrix, host_input, byte_size, cudaMemcpyHostToDevice));
 
-    dim3 blocks(block_x, block_y);
+    dim3 block(block_x, block_y);
     dim3 grid(num_cols / block_x + 1, num_rows / block_y + 1);
 
     // Transpose: Read Row, Write Column
     cout << "\n-----Transpose on Device: Read Row, Write Column-----" << endl;
     GPUErrorCheck(cudaMalloc((void**)&device_transposed, byte_size));
     GPUErrorCheck(cudaEventRecord(kernel_start, 0));
-    Transpose1<<<grid, blocks>>>(device_matrix, device_transposed, num_cols, num_rows);
+    Transpose1<<<grid, block>>>(device_matrix, device_transposed, num_cols, num_rows);
     GPUErrorCheck(cudaEventRecord(kernel_end, 0));
     GPUErrorCheck(cudaEventSynchronize(kernel_end));
     GPUErrorCheck(cudaDeviceSynchronize());
@@ -206,7 +206,7 @@ int main() {
     cout << "\n-----Transpose on Device: Read Column, Write Row-----" << endl;
     GPUErrorCheck(cudaMalloc((void**)&device_transposed, byte_size));
     GPUErrorCheck(cudaEventRecord(kernel_start, 0));
-    Transpose2<<<grid, blocks>>>(device_matrix, device_transposed, num_cols, num_rows);
+    Transpose2<<<grid, block>>>(device_matrix, device_transposed, num_cols, num_rows);
     GPUErrorCheck(cudaEventRecord(kernel_end, 0));
     GPUErrorCheck(cudaEventSynchronize(kernel_end));
     GPUErrorCheck(cudaDeviceSynchronize());
@@ -224,7 +224,7 @@ int main() {
     cout << "\n-----Transpose on Device: Read Row, Write Column, with Unrolled loop-----" << endl;
     GPUErrorCheck(cudaMalloc((void**)&device_transposed, byte_size));
     GPUErrorCheck(cudaEventRecord(kernel_start, 0));
-    Transpose1_Unroll<<<grid, blocks>>>(device_matrix, device_transposed, num_cols, num_rows);
+    Transpose1_Unroll<<<grid, block>>>(device_matrix, device_transposed, num_cols, num_rows);
     GPUErrorCheck(cudaEventRecord(kernel_end, 0));
     GPUErrorCheck(cudaEventSynchronize(kernel_end));
     GPUErrorCheck(cudaDeviceSynchronize());
@@ -242,7 +242,7 @@ int main() {
     cout << "\n-----Transpose on Device: Read Column, Write Row, with Unrolled loop-----" << endl;
     GPUErrorCheck(cudaMalloc((void**)&device_transposed, byte_size));
     GPUErrorCheck(cudaEventRecord(kernel_start, 0));
-    Transpose2_Unroll<<<grid, blocks>>>(device_matrix, device_transposed, num_cols, num_rows);
+    Transpose2_Unroll<<<grid, block>>>(device_matrix, device_transposed, num_cols, num_rows);
     GPUErrorCheck(cudaEventRecord(kernel_end, 0));
     GPUErrorCheck(cudaEventSynchronize(kernel_end));
     GPUErrorCheck(cudaDeviceSynchronize());
@@ -260,7 +260,7 @@ int main() {
     // cout << "\n-----Transpose on Device: Diagonal method-----" << endl;
     // GPUErrorCheck(cudaMalloc((void**)&device_transposed, byte_size));
     // GPUErrorCheck(cudaEventRecord(kernel_start, 0));
-    // TransposeDiagonal<<<grid, blocks>>>(device_matrix, device_transposed, num_cols, num_rows);
+    // TransposeDiagonal<<<grid, block>>>(device_matrix, device_transposed, num_cols, num_rows);
     // GPUErrorCheck(cudaEventRecord(kernel_end, 0));
     // GPUErrorCheck(cudaEventSynchronize(kernel_end));
     // GPUErrorCheck(cudaDeviceSynchronize());
@@ -278,7 +278,7 @@ int main() {
     cout << "\n-----Transpose on Device: Using Shared Memory-----" << endl;
     GPUErrorCheck(cudaMalloc((void**)&device_transposed, byte_size));
     GPUErrorCheck(cudaEventRecord(kernel_start, 0));
-    TransposeSMem<<<grid, blocks>>>(device_matrix, device_transposed, num_cols, num_rows);
+    TransposeSMem<<<grid, block>>>(device_matrix, device_transposed, num_cols, num_rows);
     GPUErrorCheck(cudaEventRecord(kernel_end, 0));
     GPUErrorCheck(cudaEventSynchronize(kernel_end));
     GPUErrorCheck(cudaDeviceSynchronize());
