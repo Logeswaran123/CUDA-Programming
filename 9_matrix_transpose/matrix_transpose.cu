@@ -80,6 +80,7 @@ __global__ void Transpose2_Unroll(int *matrix, int *transposed, int num_cols, in
 }
 
 __global__ void TransposeDiagonal(int *matrix, int *transposed, int num_cols, int num_rows) {
+    // Solution for Partition Camping issue
     int blk_x = blockIdx.x;
     int blk_y = (blockIdx.x + blockIdx.y) % gridDim.x;
 
