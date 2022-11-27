@@ -41,6 +41,9 @@ The basic flow in CUDA programming is,
 * A warp is the basic unit of execution in a cuda program. A warp is a set of 32 threads within a thread block such that all the threads in a warp execute the same instruction. These threads are selected serially by the Streaming Multiprocessor.
 * If a set of threads execute different instruction compared to other threads of a warp, then warp divergence occurs. This can reduce performance of the cuda program.
 
+#### <ins>Lane</ins>
+* A lane is just a thread in a block. Each lane in a thread block is indexed by a number in range 0 to 31. Each lane in a warp is unique, but multiple threads in a thread block can have same lane index. (in a 1D block, laneid = threadidx.x % 32)
+
 #### <ins>Dynamic Parallelism</ins>
  [![Dynamic Parallelism](https://img.shields.io/badge/Dynamic%20Parallelism-Blog-white.svg)](https://developer.nvidia.com/blog/introduction-cuda-dynamic-parallelism/)
 * Early CUDA programs have been designed in a way that GPU workload was completely in control of Host thread. Programs had to perform a sequence of kernel launches, and for best performance each kernel had to expose enough parallelism to efficiently use the GPU.
