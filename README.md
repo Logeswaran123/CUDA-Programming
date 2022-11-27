@@ -116,6 +116,10 @@ There are other types of memory: Global, Constant, Texture. Refer [CUDA Memory M
 the issue of how thread blocks are scheduled on multiprocessors is
 important.
 
+#### <ins>Warp Shuffle</ins>
+* It is a mechanism to read a thread's register by another thread, when both threads are within the same block. This ensures that there is no explicit copy between thread register and global memory/shared memory.
+* This method does not consume extra memory to share/exchange data, and it is much faster than using shared memory.
+
 ## Images
 #### Schematic
 ![alt text](https://github.com/Logeswaran123/CUDA-Programming/blob/main/images/schematic.jpg "Schematic")
