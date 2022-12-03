@@ -125,10 +125,10 @@ important.
 * This method does not consume extra memory to share/exchange data, and it is much faster than using shared memory.
 
 ## Images
-#### Schematic
+#### <b>Schematic</b>
 ![alt text](https://github.com/Logeswaran123/CUDA-Programming/blob/main/images/schematic.jpg "Schematic")
 
-#### Software vs. Hardware perspective
+#### <b>Software vs. Hardware perspective</b>
 ![alt text](https://github.com/Logeswaran123/CUDA-Programming/blob/main/images/SoftwarevsHardware.jpg "Software vs. Hardware perspective")
 
 ## Tools
